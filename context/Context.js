@@ -15,6 +15,7 @@ const ContextProvider = ({ children }) => {
     email: "",
     password: "",
   });
+  const [auth, setAuth] = useState();
   const router = useRouter();
 
   // create a new user
@@ -69,6 +70,24 @@ const ContextProvider = ({ children }) => {
       toast.error(data.message);
     }
   };
+  // get user details from the  store it in a cookie
+
+  const AuthUser = async () => {
+    try {
+      const res = await fetch("/api/user/", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+      if (data.msg === "User found") {
+        setAuth(data.user);
+      } else {
+        setAuth(null);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <Context.Provider
       value={{
@@ -78,6 +97,8 @@ const ContextProvider = ({ children }) => {
         user,
         setUser,
         handleLogin,
+        AuthUser,
+        auth,
       }}
     >
       {children}
