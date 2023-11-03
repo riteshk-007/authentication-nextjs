@@ -29,7 +29,7 @@ export async function POST(req) {
     }
   } catch (error) {
     return NextResponse.json(
-      { message: "Something went wrong", error },
+      { message: "user already exists", error },
       { status: 500 }
     );
   }

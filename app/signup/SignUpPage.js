@@ -1,6 +1,14 @@
+"use client";
+import { Context } from "@/context/Context";
 import Link from "next/link";
+import { useContext } from "react";
 
 const SignUpPage = () => {
+  const { userDetails, setUserDetails, handleSubmit } = useContext(Context);
+
+  const handleChange = (e) => {
+    setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
+  };
   return (
     <div>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -11,7 +19,7 @@ const SignUpPage = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="name"
@@ -26,6 +34,8 @@ const SignUpPage = () => {
                   type="name"
                   autoComplete="name"
                   required
+                  value={userDetails.name}
+                  onChange={handleChange}
                   className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -44,6 +54,8 @@ const SignUpPage = () => {
                   type="email"
                   autoComplete="email"
                   required
+                  value={userDetails.email}
+                  onChange={handleChange}
                   className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -73,6 +85,8 @@ const SignUpPage = () => {
                   type="password"
                   autoComplete="current-password"
                   required
+                  value={userDetails.password}
+                  onChange={handleChange}
                   className="block w-full px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
