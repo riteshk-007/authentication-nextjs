@@ -10,7 +10,7 @@ const LoginPage = () => {
   };
   return (
     <div>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 border">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             login to your account
@@ -89,6 +89,12 @@ const LoginPage = () => {
             >
               Sign up
             </Link>
+          </p>
+          <p className="mt-10 text-center text-sm text-gray-500">
+            Test account: <span className="font-semibold"> test@gmail.com</span>
+          </p>
+          <p className="my-2 text-center text-sm text-gray-500">
+            password: <span className="font-semibold"> test</span>
           </p>
         </div>
       </div>

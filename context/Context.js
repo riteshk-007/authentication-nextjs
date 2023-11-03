@@ -88,6 +88,24 @@ const ContextProvider = ({ children }) => {
       console.error(error);
     }
   };
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("/api/logout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+      if (data.message === "User logged out successfully") {
+        setAuth(null);
+        router.push("/login");
+        toast.success("User logged out successfully");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(data.message);
+    }
+  };
   return (
     <Context.Provider
       value={{
@@ -99,6 +117,7 @@ const ContextProvider = ({ children }) => {
         handleLogin,
         AuthUser,
         auth,
+        handleLogout,
       }}
     >
       {children}
