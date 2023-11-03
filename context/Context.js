@@ -11,7 +11,13 @@ const ContextProvider = ({ children }) => {
     email: "",
     password: "",
   });
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
   const router = useRouter();
+
+  // create a new user
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -34,11 +40,46 @@ const ContextProvider = ({ children }) => {
         toast.error(data.message);
       }
     } catch (error) {
-      alert(error.message);
+      toast.error(data.message);
+    }
+  };
+
+  // login a user with email and password
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: user.email,
+          password: user.password,
+        }),
+      });
+      const data = await res.json();
+      if (data.message === "Login successful") {
+        router.push("/");
+        toast.success("Login successful");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(data.message);
     }
   };
   return (
-    <Context.Provider value={{ userDetails, setUserDetails, handleSubmit }}>
+    <Context.Provider
+      value={{
+        userDetails,
+        setUserDetails,
+        handleSubmit,
+        user,
+        setUser,
+        handleLogin,
+      }}
+    >
       {children}
     </Context.Provider>
   );
