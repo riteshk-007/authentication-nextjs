@@ -26,7 +26,9 @@ export async function POST(req) {
         );
       } else {
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-        cookies().set("token", token);
+        cookies().set("token", token, {
+          maxAge: 60 * 60 * 24 * 7,
+        });
       }
     }
   }
